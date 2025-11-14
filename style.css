@@ -1,0 +1,763 @@
+/* In your main style.css file */
+:root {
+  --z-index-map: 1;
+  --z-index-sidebar: 10;
+  --z-index-modal: 100;
+  --z-index-tutorial: 1000;
+}
+
+/* ---- Navigation ---- */
+#navbar {
+    margin:0;
+    height: 55px;
+    background-color: #007073; 
+    color: white; 
+    overflow-x: hidden; 
+    display: flex; 
+    align-items: center;
+}
+
+#mainTitle {
+    z-index: 1050;
+    z-index: 1;
+    font-size: 35px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px #000000;
+    margin: 0;
+    margin-left: 100px;
+}
+
+/* LOGO FORMATTING */
+.logo-container {
+    position: absolute;
+    top: 0px;
+    padding-left: 15px;
+}
+
+.header__logo {
+    width: 70px;
+    padding-top: 6.5px;
+    object-fit: contain;
+}
+
+/* NAVBAR FORMATTING */
+
+nav {
+    margin: 1rem 0;
+}
+
+nav a {
+    color: #005a9e;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* EXTERNAL LINKS FORMATTING */
+.nav-links {
+    margin-left: auto;
+    padding-right: 2px;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 17px;
+    text-decoration: none; /* Base style, underline on hover */
+    padding: 5px 10px;
+    border: 2px solid transparent; /* Transparent border for consistent sizing */
+    border-radius: 0.3125rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.nav-links .nav-icon {
+    display: none;
+}
+
+#help-popup-btn {
+    background-color: #008f93;
+    text-shadow: none;
+    padding: 5px 10px !important;
+    border-radius: 0.3125rem;
+}
+
+#help-popup-btn:hover {
+    background-color: white;
+    color: #007073;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#start-tutorial-btn {
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    text-decoration: none;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 5px 10px !important;
+    margin-right: 10px !important;
+    border-radius: 0.3125rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#start-tutorial-btn:hover {
+    background-color: #ffffff;
+    color: #007073;
+    text-shadow: none;
+}
+
+.nav-links a:hover {
+    border: 2px solid #ffffff;
+}
+
+/* ---- Legend ---- */
+#legendSidebar {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    width: auto;
+    height: auto;
+    overflow-y: hidden;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 9998;
+    font-family: Arial, sans-serif;
+    font-size: 2vh;
+    border: 2px solid #000000;
+}
+
+#legend-title {
+    text-align: center;
+    margin: 0;
+    padding: 0.5rem 0;
+    background: #008f93;
+    color: white;
+    font-size: min(4vh,35px);
+    font-family: 'Anton', sans-serif; /* Use the imported web font */
+    text-shadow: 2px 2px 4px #000000;
+    font-weight: normal;
+}
+
+#legend-body {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ---- Video Player Sidebar ---- */
+html, body, #viewDiv { height: 100%; width: 100%; margin: 0; padding: 0; z-index: 0;}
+#videoLinksSidebar {
+    position: absolute;
+    bottom: 20px;
+    top: auto !important; /* Explicitly override any 'top' property from other stylesheets */
+    left: 10px;
+    width: 450px;
+    height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    background: white;
+    z-index: 9999;
+    font-family: Arial, sans-serif;
+    border: 2px solid #000000;
+    flex-direction: column;
+    transition: height 0.85s ease !important;
+    /* color formatting */
+    background: #008f93;
+    overflow-y: hidden; /* Hide vertical scrollbar initially */
+}
+
+#videoLinksSidebar.expanded {
+    height: 89vh;
+    transition: height 0.85s ease !important;
+}
+
+#videolinks-tabs.expanded {
+    height: 100% ;
+    transition: height 0.85s ease;
+}
+
+.sidebar-header {
+    font-family: 'Anton', sans-serif; /* Use the imported web font */
+    font-weight: 400; /* Anton is a single-weight font */
+    text-align: center;
+    z-index: 0 !important;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 35px;
+}
+
+/* --- YEAR TABS UPDATED --- */
+.wrapper {
+    width: 100%;
+    margin: 0 auto;
+    z-index:5;
+    flex-grow: 1;
+    min-height: 0; /* Ensures the wrapper can shrink properly within flex container */
+}
+
+.tabs {
+    position: relative;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden; 
+    display: flex; /* Keeps tabs on same line */
+    z-index: 5;
+}
+
+.tab {
+    flex-grow: 1; /* Allow tabs to grow and fill the container */
+    max-height: 87vh; /* Set a maximum height for the tabs */
+}
+
+/* tab appearance without buttons */
+.tab-switch {
+    display: none !important;
+}
+
+/* tab button personalization */
+.tab-label {
+    position: relative;
+    display: block;
+    min-height: 30px;
+    line-height: 30px; /* Match height for consistent vertical alignment */
+    padding: 0 15px;
+    text-align: center;
+    background: #007073;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.25s;
+    border-bottom: 2px solid #000000;
+}
+
+/* hovering over regular tab button */
+.tab-label:hover {
+    background: #008f93; /* A slightly lighter, more subtle hover color */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* A stronger shadow */
+    transform: translateY(-0.25rem) !important;
+    border-bottom: 0.25rem #007073;
+    z-index: 9999;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+/* tab content personalization general */
+.tab-content {
+    /* Height is calculated to fill the space below the tab labels. */
+    height: calc(100% - 30px); /* Fill space below the 30px tab labels */
+    width: 100%;
+    position: absolute !important;
+    z-index: 1;
+    top: 30px; /* Position below the tab labels */
+    left: 0; /* Align to the left edge of the container */
+    background: #ffffff;
+    overflow-y: auto; /* This enables vertical scrolling within the content area. */
+    color: #2c3e50;
+    padding: 1vh 15px 15px;
+    box-sizing: border-box; /* Include padding in width calculation */
+    opacity: 0; /* Controlled by .visible class */
+    transition: background-color 1.0s;
+}
+
+/* tab content personalization for when being used */
+.tab-content.active {
+    max-height: 87vh; 
+    opacity: 1;
+    padding: 15px; 
+    /* The 'transition' property is now defined on the base .tab-content rule */
+}
+
+/* #south-sunset.active {
+    margin-bottom: 3.5vh !important; /* Add bottom margin when active */
+/* } */
+
+/* tab button personalization for tab that is not opened */
+.tab-switch:checked + .tab-label {
+    background: #008f93;
+    color: #ffffff;
+    font-weight: bold;
+    transition: all 0.25s;
+    /* The 'top' property is removed so the lift effect is controlled only by :hover */
+}
+
+/* hovering over current/clicked tab button */
+.tab-switch:checked + .tab-label:hover {
+    color: #ffffff; /* Keep the text color consistent with the active state */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5) !important; /* A stronger shadow */
+    transform: translateY(-0.25rem);
+    z-index: 9999;
+}
+
+/* tab content personalization for when being used
+.tab-switch:checked + label + .tab-content {
+    /* Keep positioning, but remove visibility properties (opacity, z-index) */
+    /* These will now be controlled by the .tab-content.visible class via JavaScript */
+/* } */
+
+.tab-content.visible {
+    opacity: 1;
+    z-index: 2;
+}
+
+.collapsible-container{
+    margin: 10px 0;
+    font-family: Arial, sans-serif;
+    max-height: 87vh;
+    /* Add transitions for accordion toggle and new tab switch animation */
+    transition: max-height 0.85s ease, opacity 0.3s ease-out, transform 0.3s ease-out;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.collapsible-container.animating-out {
+    opacity: 0;
+    transform: translateX(-100%); /* Slide out to the left */
+}
+
+.collapsible-container.animating-in {
+    opacity: 0;
+    transform: translateX(100%); /* Start off-screen to the right */
+}
+
+.collapsible-container.animating-out-reverse {
+    opacity: 0;
+    transform: translateX(100%); /* Slide out to the right */
+}
+
+.collapsible-container.animating-in-reverse {
+    opacity: 0;
+    transform: translateX(-100%); /* Start off-screen to the left */
+}
+
+.collapsible-header {
+    background-color: #eee;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collapsible-header:hover {
+    background-color: white;
+    color: #007073 !important; /* Text color when hovered */
+}
+
+.toggle-icon {
+    transition: transform 0.3s ease;
+    font-size: 16px;
+}
+
+.collapsible-content {
+    overflow: auto;
+    max-height: 0;
+    transition: max-height 0.85s ease;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: #eee;
+    transition: all 0.85s;
+}
+
+/* SCROLLBAR EDITING */
+.collapsible-content::-webkit-scrollbar { /* removes scrollbar within region buttons */
+    width: 0;
+    height: 0;
+}
+
+.tabs::-webkit-scrollbar { /* removes scrollbar within region buttons */
+    width: 0;
+    height: 0;
+}
+
+.tab-content::-webkit-scrollbar { /* removes scrollbar within region buttons */
+    width: 0;
+    height: 0;
+}
+
+/* Button group styles */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    transition: all 0.85s;
+}
+
+.site button {
+    margin: 5px 0;
+    display: block;
+    padding: 8px 12px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Smooth transition for multiple properties */
+    box-sizing: border-box !important; /* Ensure padding and border are included in width */
+}
+
+/* Hover effect for buttons within the site class */
+.site button:hover {
+    background-color: #ffffff !important; /* Color when hovered */
+    color: #007073 !important; /* Text color when hovered */
+    box-shadow: 0 2px 15px #007073; /* Subtle shadow effect */
+    font-weight: bold;
+}
+
+/* GIS Map */
+.esri-search {
+    border: 2px solid #000000;  /* Change border thickness and color */
+    border-radius: 6px;         /* Optional: round the corners */
+    box-shadow: 0 2px 6px rgba(0, 0, 1, 1);  /* Optional: add a subtle shadow */
+}
+
+.esri-search__input {
+    border: none; /* Removes default inner border */
+    font-size: 16px;
+}
+
+/* removes border when focused...clicking map */
+.esri-view{
+    --esri-view-outline-color: hidden;
+}
+
+#custom-popup {
+    display: none;
+    position: absolute;
+    
+    /* Position is set via CSS variables from JS, with a minimum top value to stay below the navbar */
+    top: max(6vh, var(--popup-top, 0px));
+    left: var(--popup-left, 0px);
+
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 1vh;
+    padding: 1vh 1.5vw;
+    z-index: 10001; /* Ensures popup is above all other content, including navbar logo */
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    color: black;
+    pointer-events: auto;
+    white-space: nowrap;
+    width: auto;
+    height: auto;
+    font-size: 1.8vh; /* Base font-size for proportional scaling */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.popup-button {
+    background-color: #f0f0f0;
+    border: 1px solid #000000;
+    border-radius: 0.4em;
+    padding: 0.4em 0.8em;
+    font-family: Arial, sans-serif;
+    font-size: 0.9em; /* Relative to #custom-popup font-size */
+    cursor: pointer;
+    font-weight: normal;
+    color: #000000;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.popup-button:hover {
+    background-color: #ffffff;
+    border-color: #999;
+    box-shadow: 0 2px 15px #007073;
+    color: #007073 !important;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0px;
+    overflow: hidden; /* Prevents scrolling on the main page */
+}
+
+/* Video Modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+    margin: 10% auto;
+    padding: 20px;
+    background: #fff;
+    width: 80%;
+    max-width: 700px;
+    position: relative;
+}
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+#closeModal:hover{
+    color: #007073;
+}
+
+/* Ensure help modal is on top of other content */
+#helpModal {
+    z-index: 100000; /* High z-index to cover other elements */
+}
+
+/* Hover effect for the help modal's close button */
+#helpModal .close:hover {
+    color: #007073;
+}
+
+/* Help Modal specific styles */
+#helpModal .modal-content {
+    border: 2px solid #000000;
+    border-radius: 8px;
+}
+
+#helpModal h2 {
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    color: #007073;
+    margin-top: 0;
+}
+
+#helpModal h3 {
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+#helpModal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#helpModal li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* ---- Mobile & Responsive Styles ---- */
+.navbar-toggler {
+    display: none; /* Hidden by default, shown in media query */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0 15px;
+    margin-left: auto; /* Pushes it to the right */
+    line-height: 1;
+}
+
+.sidebar-toggle-btn {
+    display: none; /* Hidden by default, shown in media query */
+    position: fixed;
+    top: 30%;
+    transform: translateY(-50%);
+    z-index: var(--z-index-sidebar);
+    background-color: #008f93;
+    color: white;
+    border: 2px solid black;
+    cursor: pointer;
+    padding: 10px 5px;
+    font-family: 'Anton', sans-serif;
+    font-size: 20px;
+    text-shadow: 1px 1px 2px #000000;
+    transition: background-color 0.3s;
+}
+
+.sidebar-toggle-btn:hover {
+    background-color: #007073;
+}
+
+.sidebar-toggle-btn.left {
+    left: 0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-left: none;
+    writing-mode: sideways-lr;
+    text-orientation: mixed;
+}
+
+.sidebar-toggle-btn.right {
+    right: 0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-right: none;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+}
+
+/* ---- MEDIA QUERIES ---- */
+/* Adjustments for keeping #videoLinksSidebar within view */
+@media (max-height: 515px) {
+    #videoLinksSidebar {
+        height: calc(100% - 80px); /* Adjust height to fit smaller screens */
+        position: fixed;
+    }
+
+    #videoLinksSidebar.expanded {
+        height: calc(100% - 80px); /* Maintain adjusted height when expanded */
+    }
+}
+
+/* Adjustments for SMALL COMPUTER SCREENS / IPADS */
+@media (max-width: 1250px) {
+    .nav-links .link-text {
+        display: none;
+    }
+
+    .nav-links .nav-icon {
+        display: inline;
+        font-size: 1.2rem;
+    }
+}
+
+/* Adjustments for MOBILE VERSION */
+@media (max-width: 950px), (orientation: portrait) {
+    html, body {
+        overflow: hidden !important; /* Prevent scrolling on the entire page */
+    } 
+
+    /* -- Navbar Adjustments -- */
+    #navbar {
+        justify-content: space-between;
+        z-index: 100 !important;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        position: absolute;
+        top: 55px; /* Below navbar */
+        left: 0;
+        width: 100%;
+        z-index: 99 !important;
+        background-color: #007073;
+        border-top: 1px solid white;
+        margin-left: 0; /* Reset margin */
+        gap: 0; /* Remove inherited gap for a tight list */
+        transform: translateY(-150%);
+    }
+
+    .nav-links.open {
+        transform: translateY(0); /* Slide into view */
+    }
+
+    .nav-links a, #help-popup-btn {
+        padding: 15px !important; /* Standardize padding for a consistent size and touch target */
+        text-shadow: none; /* Remove text shadow for better readability */
+        border: 2px solid #007073;
+        background-color: #008f93;
+        width: 100%; /* Full width for easier tapping */
+        box-sizing: border-box; /* Ensure padding and border are included in width */
+        text-align: center; /* Center text for better appearance */
+        font-size: 2.5vh; /* Increase font size for better readability */
+    }
+
+    .nav-links a:hover, #help-popup-btn:hover {
+        background-color: white;
+        color: black;
+        border-color: transparent; /* Remove border on hover for mobile view */
+    }
+
+    .nav-links .link-text {
+        display: inline;
+    }
+
+    .nav-links .nav-icon {
+        display: none;
+    }
+
+    #start-tutorial-btn {
+        display: none; /* Hide the tutorial button on mobile */
+    }
+
+    .navbar-toggler {
+        display: block; /* Show hamburger menu */
+        margin-left: 0; /* Let space-between handle positioning */
+    }
+
+    #mainTitle {
+        position: relative !important;
+        font-size: 25px;
+        flex-grow: 1; /* Allow title to take up available space */
+        text-align: right !important; /* Center the text within the element */
+    }
+
+    /* -- Sidebar Adjustments -- */
+    .sidebar-toggle-btn {
+        display: block; /* Show sidebar toggles */
+    }
+
+    #videoLinksSidebar, #legendSidebar {
+        position: fixed;
+        transition: transform 0.3s ease-in-out;
+        z-index: var(--z-index-sidebar);
+        box-sizing: border-box !important; /* Include border in the element's total width */
+    }
+
+    #videoLinksSidebar {
+        top: auto;
+        height: 50%;
+        left: 0;
+        bottom: 0%;
+        width: 100%;
+        transform: translateX(-100%);
+    }
+
+    #videoLinksSidebar.open {
+        transform: translateX(0);
+    }
+
+    #videoLinksSidebar.expanded {
+        height: 100%;
+        z-index: 1000;
+    }
+
+    #videoLinksSidebar .tabs, #videoLinksSidebar .tab-content {
+        width: 100%; /* Use full width of the sidebar */
+    }
+
+    #legendSidebar {
+        top: auto;
+        right: 0;
+        bottom: 5vh;
+        transform: translateX(100%);
+        width: auto;
+    }
+
+    #legendSidebar.open {
+        transform: translateX(0%);
+    }
+
+    /* Disable the custom map popup on mobile devices */
+    #custom-popup {
+        display: none !important;
+    }
+}

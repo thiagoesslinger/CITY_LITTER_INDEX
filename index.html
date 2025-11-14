@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <title>Coral Gables Litter Index</title>
+    <!-- style.css for entire website -->
+
+    <!-- GIS styling -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css" />
+
+    <!-- Custom styles - MUST be loaded AFTER the default GIS styles to override them -->
+    <link rel="stylesheet" href="./src/style.css" />
+
+    <!-- Tutorial styles -->
+    <link rel="stylesheet" href="./src/tutorial.css" />
+
+    <!-- Google Fonts Import for a consistent, web-safe 'Impact'-like font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- GIS JavaScript -->
+    <script src="https://js.arcgis.com/4.29/"></script>
+</head>
+
+<body>
+    <nav
+        id="navbar"
+        class="navbar navbar-expand-lg shadow-sm w-100"
+        >
+        <div class="logo-container">
+            <a href="https://www.coralgables.com/" class="d-flex align-items-center" target="_blank" rel="noopener noreferrer">
+                <img
+                    src="./CG_Logo_white.png"
+                    alt="City of Coral Gables Logo"
+                    class="header__logo"
+                />
+            </a>
+        </div>
+        <h2
+            id="mainTitle"
+            class="text-white"
+        >
+        City Litter Index
+        </h2>
+        <div class="nav-links">
+            <a id="help-popup-btn" href="#" title="Help">
+                <i class="fas fa-question-circle nav-icon"></i>
+                <span class="link-text">Help</span>
+            </a>
+            <a id="SmartCityLink" href="https://coral-gables-smart-city-hub-2-cggis.hub.arcgis.com/" target="_blank" rel="noopener noreferrer" title="Smart City Hub">
+                <i class="fas fa-network-wired nav-icon"></i>
+                <span class="link-text">Smart City Hub</span>
+            </a>
+            <a id="KCGBLink" href="https://www.coralgables.com/department/sustainability/keep-coral-gables-beautiful" target="_blank" rel="noopener noreferrer" title="KCGB">
+                <i class="fas fa-tree nav-icon"></i>
+                <span class="link-text">KCGB</span>
+            </a>
+            <a id="RecyclingLink" href="https://www.coralgables.com/department/public-works/solid-waste-division/services/recycling" target="_blank" rel="noopener noreferrer" title="Recycling">
+                <i class="fas fa-recycle nav-icon"></i>
+                <span class="link-text">Recycling</span>
+            </a>
+            <a id="SustainabilityLink" href="https://www.coralgables.com/department/sustainability" target="_blank" rel="noopener noreferrer" title="Sustainability">
+                <i class="fas fa-leaf nav-icon"></i>
+                <span class="link-text">Sustainability</span>
+            </a>
+            <a id="start-tutorial-btn" href="#">START TUTORIAL</a>
+        </div>
+        <button id="navbar-toggler-btn" class="navbar-toggler" aria-label="Toggle navigation">&#9776;</button>
+    </nav>
+
+    <button id="toggle-legend-sidebar" class="sidebar-toggle-btn right" aria-label="Toggle Legend Sidebar">LEGEND</button>
+    <div id="legendSidebar">
+        <h1 id="legend-title"> LEGEND </h1>
+        <div id="legend-body">
+            <p style="font-weight: bold;">MAP ICON</p>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" style="vertical-align: -0.15em; margin-right: 0.25em;">
+                    <polyline points="2,14 8,2 14,14" stroke="rgb(158,85,156)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>Site/Segment
+            <br>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" style="vertical-align: -0.15em; margin-right: 0.25em; border: 1px solid black;">
+                    <defs>
+                        <linearGradient id="rainbow" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color: rgb(158,58,156)" />
+                            <stop offset="33%" style="stop-color:rgb(20,158,206);" />
+                            <stop offset="66%" style="stop-color:rgb(167,198,54);" />
+                            <stop offset="100%" style="stop-color:rgb(237,81,81);" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="16" height="16" fill="url(#rainbow)" />
+                </svg>Zone
+            <br>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" style="vertical-align: -0.15em; margin-right: 0.25em;">
+                    <polyline points="2,14 8,2 14,14" stroke="red" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>City Boundary
+            
+            <br>
+            <p style="font-weight: bold;">ZONE COLOR</p>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" style="vertical-align: -0.15em; margin-right: 0.25em; border: 1px solid black;">
+                    <rect width="16" height="16" style="fill:rgb(158,85,156);" />
+                </svg>North Bird
+            <br>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" style="vertical-align: -0.15em; margin-right: 0.25em; border: 1px solid black;">
+                    <rect width="16" height="16" style="fill:rgb(20,158,206);" />
+                </svg>East LeJeune
+            <br>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" style="vertical-align: -0.15em; margin-right: 0.25em; border: 1px solid black;">
+                    <rect width="16" height="16" style="fill:rgb(167,198,54);" />
+                </svg>South Bird
+            <br>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" style="vertical-align: -0.15em; margin-right: 0.25em; border: 1px solid black;">
+                    <rect width="16" height="16" style="fill:rgb(237,81,81);" />
+                </svg>South US 1
+            <br>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" style="vertical-align: -0.15em; margin-right: 0.25em; border: 1px solid black;">
+                    <rect width="16" height="16" style="fill:rgb(237,81,81);" />
+                </svg>South Sunset
+        </div>
+    </div>
+
+    <button id="toggle-video-sidebar" class="sidebar-toggle-btn left" aria-label="Toggle Video Player Sidebar">VIDEOS</button>
+    <div id="videoLinksSidebar">
+        <h1 class="sidebar-header">VIDEO PLAYER</h1>
+
+        <div class="wrapper">  
+            <div id = videolinks-tabs class="tabs">
+
+                <!-- 2021 -->
+                <div class="tab">
+                    <input type="radio" name="css-tabs" id="tab1" checked class="tab-switch">
+                    <label for="tab1" class="tab-label">2021</label>
+                    <div class="tab-content">
+                        <!--North Bird-->
+                        <div class="collapsible-container" style="border: 2px solid #000000; border-radius: 5px; margin-top: 10px;color: rgb(158,85,156);">
+                            <div class="collapsible-header" onclick="toggleCollapse(this)">
+                                North Bird
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="collapsible-content">
+                                <div class="button-group">
+                                    <div class="site" data-video-link="" data-object-id="14">
+                                        <button style="background-color:rgb(158,85,156);color:white;border-radius:5px;font-family:Arial"> Site 1</button></div>
+                                    <div class="site" data-video-link="" data-object-id="13">
+                                        <button style="background-color:rgb(158,85,156);color:white;border-radius:5px;font-family:Arial"> Site 2</button></div>
+                                    <div class="site" data-video-link="" data-object-id="15">
+                                        <button style="background-color:rgb(158,85,156);color:white;border-radius:5px;font-family:Arial"> Site 3</button></div>
+                                    <div class="site" data-video-link="" data-object-id="11">
+                                        <button style="background-color:rgb(158,85,156);color:white;border-radius:5px;font-family:Arial"> Site 4</button></div>
+                                    <div class="site" data-video-link="" data-object-id="16">
+                                        <button style="background-color:rgb(158,85,156);color:white;border-radius:5px;font-family:Arial"> Site 5</button></div>
+                                    <div class="site" data-video-link="" data-object-id="49">
+                                        <button style="background-color:rgb(158,85,156);color:white;border-radius:5px;font-family:Arial"> Site 6</button></div>
+                                    <div class="site" data-video-link="" data-object-id="47">
+                                        <button style="background-color:rgb(158,85,156);color:white;border-radius:5px;font-family:Arial"> Site 7</button></div>
+                                    <div class="site" data-video-link="" data-object-id="48">
+                                        <button style="background-color:rgb(158,85,156);color:white;border-radius:5px;font-family:Arial"> Site 8</button></div>
+                                    <div class="site" data-video-link="" data-object-id="10">
+                                        <button style="background-color:rgb(158,85,156);color:white;border-radius:5px;font-family:Arial"> Site 9</button></div>
+                                    <div class="site" data-video-link="" data-object-id="12">
+                                        <button style="background-color:rgb(158,85,156);color:white;border-radius:5px;font-family:Arial"> Site 10</button></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- East LeJeune -->
+                        <div class="collapsible-container" style="border: 2px solid #000000; border-radius: 5px; margin-top: 10px;color: rgb(20,158,206);">
+                            <div class="collapsible-header" onclick="toggleCollapse(this)">
+                                East LeJeune
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="collapsible-content">
+                                <div class="button-group">
+                                    <div class="site" data-video-link="" data-object-id="4">
+                                        <button style="background-color:rgb(20,158,206);color:white;border-radius:5px;font-family:Arial"> Site 1</button></div>
+                                    <div class="site" data-video-link="" data-object-id="5">
+                                        <button style="background-color:rgb(20,158,206);color:white;border-radius:5px;font-family:Arial"> Site 2</button></div>
+                                    <div class="site" data-video-link="" data-object-id="3">
+                                        <button style="background-color:rgb(20,158,206);color:white;border-radius:5px;font-family:Arial"> Site 3</button></div>
+                                    <div class="site" data-video-link="" data-object-id="7">
+                                        <button style="background-color:rgb(20,158,206);color:white;border-radius:5px;font-family:Arial"> Site 4</button></div>
+                                    <div class="site" data-video-link="" data-object-id="1">
+                                        <button style="background-color:rgb(20,158,206);color:white;border-radius:5px;font-family:Arial"> Site 5</button></div>
+                                    <div class="site" data-video-link="" data-object-id="8">
+                                        <button style="background-color:rgb(20,158,206);color:white;border-radius:5px;font-family:Arial"> Site 6</button></div>
+                                    <div class="site" data-video-link="" data-object-id="2">
+                                        <button style="background-color:rgb(20,158,206);color:white;border-radius:5px;font-family:Arial"> Site 7</button></div>
+                                    <div class="site" data-video-link="" data-object-id="6">
+                                        <button style="background-color:rgb(20,158,206);color:white;border-radius:5px;font-family:Arial"> Site 8</button></div>
+                                    <div class="site" data-video-link="" data-object-id="42">
+                                        <button style="background-color:rgb(20,158,206);color:white;border-radius:5px;font-family:Arial"> Site 9</button></div>
+                                    <div class="site" data-video-link="" data-object-id="9">
+                                        <button style="background-color:rgb(20,158,206);color:white;border-radius:5px;font-family:Arial"> Site 10</button></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--South Bird-->
+                        <div class="collapsible-container" style="border: 2px solid #000000; border-radius: 5px; margin-top: 10px;color: rgb(167,198,54);">
+                            <div class="collapsible-header" onclick="toggleCollapse(this)">
+                                South Bird
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="collapsible-content">
+                                <div class="button-group">
+                                    <div class="site" data-video-link="" data-object-id="19">
+                                        <button style="background-color:rgb(167,198,54);color:white;border-radius:5px;font-family:Arial"> Site 1</button></div>
+                                    <div class="site" data-video-link="" data-object-id="18">
+                                        <button style="background-color:rgb(167,198,54);color:white;border-radius:5px;font-family:Arial"> Site 2</button></div>
+                                    <div class="site" data-video-link="" data-object-id="17">
+                                        <button style="background-color:rgb(167,198,54);color:white;border-radius:5px;font-family:Arial"> Site 3</button></div>
+                                    <div class="site" data-video-link="" data-object-id="20">
+                                        <button style="background-color:rgb(167,198,54);color:white;border-radius:5px;font-family:Arial"> Site 4</button></div>
+                                    <div class="site" data-video-link="" data-object-id="41">
+                                        <button style="background-color:rgb(167,198,54);color:white;border-radius:5px;font-family:Arial"> Site 5</button></div>
+                                    <div class="site" data-video-link="" data-object-id="50">
+                                        <button style="background-color:rgb(167,198,54);color:white;border-radius:5px;font-family:Arial"> Site 6</button></div>
+                                    <div class="site" data-video-link="" data-object-id="43">
+                                        <button style="background-color:rgb(167,198,54);color:white;border-radius:5px;font-family:Arial"> Site 7</button></div>
+                                    <div class="site" data-video-link="" data-object-id="44">
+                                        <button style="background-color:rgb(167,198,54);color:white;border-radius:5px;font-family:Arial"> Site 8</button></div>
+                                    <div class="site" data-video-link="" data-object-id="45">
+                                        <button style="background-color:rgb(167,198,54);color:white;border-radius:5px;font-family:Arial"> Site 9</button></div>
+                                    <div class="site" data-video-link="" data-object-id="46">
+                                        <button style="background-color:rgb(167,198,54);color:white;border-radius:5px;font-family:Arial"> Site 10</button></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--South US 1-->
+                        <div class="collapsible-container" style="border: 2px solid #000000; border-radius: 5px; margin-top: 10px;color: rgb(237,81,81);">
+                            <div class="collapsible-header" onclick="toggleCollapse(this)">
+                                South US 1
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="collapsible-content">
+                                <div class="button-group">
+                                    <div class="site" data-video-link="" data-object-id="26">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 1</button></div>
+                                    <div class="site" data-video-link="" data-object-id="21">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 2</button></div>
+                                    <div class="site" data-video-link="" data-object-id="24">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 3</button></div>
+                                    <div class="site" data-video-link="" data-object-id="27">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 4</button></div>
+                                    <div class="site" data-video-link="" data-object-id="22">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 5</button></div>
+                                    <div class="site" data-video-link="" data-object-id="23">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 6</button></div>
+                                    <div class="site" data-video-link="" data-object-id="30">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 7</button></div>
+                                    <div class="site" data-video-link="" data-object-id="29">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 8</button></div>
+                                    <div class="site" data-video-link="" data-object-id="28">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 9</button></div>
+                                    <div class="site" data-video-link="" data-object-id="25">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 10</button></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--South Sunset-->
+                        <div class="collapsible-container" style="border: 2px solid #000000; border-radius: 5px; margin-top: 10px;color: rgb(237,81,81);">
+                            <div class="collapsible-header" onclick="toggleCollapse(this)">
+                                South Sunset
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div id = "south-sunset" class="collapsible-content">
+                                <div class="button-group">
+                                    <div class="site" data-video-link="" data-object-id="38">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 1</button></div>
+                                    <div class="site" data-video-link="" data-object-id="37">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 2</button></div>
+                                    <div class="site" data-video-link="" data-object-id="34">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 3</button></div>
+                                    <div class="site" data-video-link="" data-object-id="39">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 4</button></div>
+                                    <div class="site" data-video-link="" data-object-id="40">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 5</button></div>
+                                    <div class="site" data-video-link="" data-object-id="35">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 6</button></div>
+                                    <div class="site" data-video-link="" data-object-id="33">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 7</button></div>
+                                    <div class="site" data-video-link="" data-object-id="36">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 8</button></div>
+                                    <div class="site" data-video-link="" data-object-id="32">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 9</button></div>
+                                    <div class="site" data-video-link="" data-object-id="31">
+                                        <button style="background-color:rgb(237,81,81);color:white;border-radius:5px;font-family:Arial"> Site 10</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- This closes .tab-content -->
+                </div> <!-- This closes the .tab div for 2021 -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- GIS stuff -->
+    <div id="viewDiv" style="height: 94vh;"></div>
+
+    <div id="videoModal" style="
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);">
+        <div id="video_player" style="
+            margin: 5% auto;
+            padding: 20px;
+            background: white;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+            border: 2px solid #000000;">
+            <span id="closeModal" style="
+                position: absolute;
+                top: 0.5vh;
+                right: 0.5vw;
+                font-size: 5vh;
+                font-weight: bold;
+                cursor: pointer;">&times;</span>
+            <div id="videoContainer" style="text-align:center;">
+                <iframe id="videoFrame" align-items="left" width="95%" height="450" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Popup Container for map clicks. Styled to match other widgets. -->
+    <div id="custom-popup">
+        <!-- Content is set dynamically by JavaScript -->
+    </div>
+
+    <!-- Tutorial Container -->
+    <div id="tutorial-overlay"></div>
+    <div id="tutorial-box">
+        <h3>Tutorial Title</h3>
+        <p>Tutorial step description goes here.</p>
+        <div class="tutorial-nav">
+            <button id="tutorial-prev" style="margin-right: 2px;">Previous</button>
+            <span id="tutorial-step-counter"></span>
+            <button id="tutorial-next">Next</button>
+            <button id="tutorial-close" style="margin-left: auto;">Close</button>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="helpModalClose">&times;</span>
+            <h2>About the Litter Index</h2>
+            <p>The City of Coral Gables Litter Index is a tool to visualize and track the cleanliness of different areas within the city over time. The index is based on video surveys of various road segments, which are then scored based on the amount and type of litter observed.</p>
+            <h3>How to Use This Application</h3>
+            <ul>
+                <li><strong>Explore the Map:</strong> The main map displays different zones and survey sites. You can pan and zoom to explore.</li>
+                <li><strong>Search:</strong> Use the search bar to find a specific address.</li>
+                <li><strong>View Videos:</strong> Use the "VIDEO PLAYER" sidebar to find and watch the survey videos for each site, organized by year and region. Hover over a site button to see its location highlighted on the map.</li>
+                <li><strong>Zone Information:</strong> Click on a colored zone on the map to see its name and get options to zoom in or view the corresponding videos in the sidebar.</li>
+                <li><strong>Legend:</strong> The legend on the right explains the map's colors and symbols.</li>
+                <li><strong>Tutorial:</strong> For a guided tour, click the "START TUTORIAL" button in the navigation bar. Please note that this feature is not available on mobile devices.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!--JavaScript for entire website -->
+    <script src="./src/main.js"></script>
+
+    <!-- Tutorial JavaScript -->
+    <script src="./src/tutorial.js"></script>
+</body>
+
+</html>
